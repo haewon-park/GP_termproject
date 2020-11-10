@@ -1,3 +1,5 @@
+const earth_rt_speed = 0.0005;
+
 // Set width, height size
 var width  = 1333,
 		height = window.innerHeight;
@@ -6,7 +8,7 @@ var width  = 1333,
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, width / height, 1, 1000 );
 // camera.position.z = 10;
- camera.position.set(0, 30, 100);
+ camera.position.set(50, 20, 40);
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( width, height );
@@ -94,7 +96,16 @@ createSpotlights(scene);
 const animate = function () {
   requestAnimationFrame( animate );
 
-  sunMesh.rotation.y += 0.02;
+  sunMesh.rotation.y += earth_rt_speed * 4;
+  mercuryMesh.rotation.y += earth_rt_speed * 0.001;
+  venusMesh.rotation.y += earth_rt_speed * 0.0004;
+  earthMesh.rotation.y += earth_rt_speed;
+  marsMesh.rotation.y += earth_rt_speed * 0.5;
+  jupiterMesh.rotation.y += earth_rt_speed * 30;
+  saturnMesh.rotation.y += earth_rt_speed * 20;
+  uranusMesh.rotation.y += earth_rt_speed * 5;
+  neptuneMesh.rotation.y += earth_rt_speed * 0.003;
+  plutoMesh.rotation.y += earth_rt_speed * 0.001;
 
   renderer.render( scene, camera );
 };
@@ -114,63 +125,50 @@ function createSpotlights(scene) {
   var intensity = 3;
   var distance = 35;
   var angle = Math.PI/4;
-/*
-  new Array(6).fill('').forEach((item, i) => {
-    var spotlight = new THREE.SpotLight(color, intensity, distance, angle);
-    var value = i % 2 === 0 ? 25 : -25;
 
-    spotlight.position.set(
-      i < 2 ? value : 0,
-      i >= 2 && i < 4 ? value : 0,
-      i >= 4 ? value : 0
-    ); */
+  var spotlight1 = new THREE.SpotLight(color, intensity, distance, angle);
+  spotlight1.position.set(-25, 25, 0);
+  scene.add( spotlight1 );
+  var spotlight2 = new THREE.SpotLight(color, intensity, distance, angle);
+  spotlight2.position.set(25, 25, 0);
+  scene.add( spotlight2 );
+  var spotlight3 = new THREE.SpotLight(color, intensity, distance, angle);
+  spotlight3.position.set(25, -25, 0);
+  scene.add( spotlight3 );
+  var spotlight4 = new THREE.SpotLight(color, intensity, distance, angle);
+  spotlight4.position.set(-25, -25, 0);
+  scene.add( spotlight4 );
+  var spotlight5 = new THREE.SpotLight(color, intensity, distance, angle);
+  spotlight5.position.set(0, 0, 40);
+  scene.add( spotlight5 );
+  var spotlight6 = new THREE.SpotLight(color, intensity, distance, angle);
+  spotlight6.position.set(0, 0, -40);
+  scene.add( spotlight6 );
+  var spotlight7 = new THREE.SpotLight(color, intensity, distance, angle);
+  spotlight7.position.set(25, 0, 25);
+  scene.add( spotlight7 );
+  var spotlight8 = new THREE.SpotLight(color, intensity, distance, angle);
+  spotlight8.position.set(25, 0, -25);
+  scene.add( spotlight8 );
+  var spotlight9 = new THREE.SpotLight(color, intensity, distance, angle);
+  spotlight9.position.set(-25, 0, -25);
+  scene.add( spotlight9 );
+  var spotlight10 = new THREE.SpotLight(color, intensity, distance, angle);
+  spotlight10.position.set(-25, 0, 25);
+  scene.add( spotlight10 );
+  var spotlight11 = new THREE.SpotLight(color, intensity, distance, angle);
+  spotlight11.position.set(0, 25, 25);
+  scene.add( spotlight11 );
+  var spotlight12 = new THREE.SpotLight(color, intensity, distance, angle);
+  spotlight12.position.set(0, 25, -25);
+  scene.add( spotlight12 );
+  var spotlight13 = new THREE.SpotLight(color, intensity, distance, angle);
+  spotlight13.position.set(0, -25, 25);
+  scene.add( spotlight13 );
+  var spotlight14 = new THREE.SpotLight(color, intensity, distance, angle);
+  spotlight14.position.set(0, -25, -25);
+  scene.add( spotlight14 );
 
-    var spotlight1 = new THREE.SpotLight(color, intensity, distance, angle);
-    spotlight1.position.set(-25, 25, 0);
-    scene.add( spotlight1 );
-    var spotlight2 = new THREE.SpotLight(color, intensity, distance, angle);
-    spotlight2.position.set(25, 25, 0);
-    scene.add( spotlight2 );
-    var spotlight3 = new THREE.SpotLight(color, intensity, distance, angle);
-    spotlight3.position.set(25, -25, 0);
-    scene.add( spotlight3 );
-    var spotlight4 = new THREE.SpotLight(color, intensity, distance, angle);
-    spotlight4.position.set(-25, -25, 0);
-    scene.add( spotlight4 );
-    var spotlight5 = new THREE.SpotLight(color, intensity, distance, angle);
-    spotlight5.position.set(0, 0, 40);
-    scene.add( spotlight5 );
-    var spotlight6 = new THREE.SpotLight(color, intensity, distance, angle);
-    spotlight6.position.set(0, 0, -40);
-    scene.add( spotlight6 );
-    var spotlight7 = new THREE.SpotLight(color, intensity, distance, angle);
-    spotlight7.position.set(25, 0, 25);
-    scene.add( spotlight7 );
-    var spotlight8 = new THREE.SpotLight(color, intensity, distance, angle);
-    spotlight8.position.set(25, 0, -25);
-    scene.add( spotlight8 );
-    var spotlight9 = new THREE.SpotLight(color, intensity, distance, angle);
-    spotlight9.position.set(-25, 0, -25);
-    scene.add( spotlight9 );
-    var spotlight10 = new THREE.SpotLight(color, intensity, distance, angle);
-    spotlight10.position.set(-25, 0, 25);
-    scene.add( spotlight10 );
-    var spotlight11 = new THREE.SpotLight(color, intensity, distance, angle);
-    spotlight11.position.set(0, 25, 25);
-    scene.add( spotlight11 );
-    var spotlight12 = new THREE.SpotLight(color, intensity, distance, angle);
-    spotlight12.position.set(0, 25, -25);
-    scene.add( spotlight12 );
-    var spotlight13 = new THREE.SpotLight(color, intensity, distance, angle);
-    spotlight13.position.set(0, -25, 25);
-    scene.add( spotlight13 );
-    var spotlight14 = new THREE.SpotLight(color, intensity, distance, angle);
-    spotlight14.position.set(0, -25, -25);
-    scene.add( spotlight14 );
-
-
-
-//    });
 }
 
 
