@@ -8,7 +8,7 @@ var width  = 1333,
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, width / height, 1, 1000 );
 // camera.position.z = 10;
- camera.position.set(50, 20, 40);
+camera.position.set(50, 10, 50);
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( width, height );
@@ -17,6 +17,7 @@ document.body.appendChild( renderer.domElement );
 // Set Texture
 const loader = new THREE.TextureLoader();
 
+// Planet
 const sunTexture = loader.load("./images/sun.jpg");
 const mercuryTexture = loader.load("./images/mercury.jpg");
 const venusTexture = loader.load("./images/venus.jpg");
@@ -26,7 +27,12 @@ const jupiterTexture = loader.load("./images/jupiter.jpg");
 const saturnTexture = loader.load("./images/saturn.jpg");
 const uranusTexture = loader.load("./images/uranus.jpg");
 const neptuneTexture = loader.load("./images/neptune.jpg");
+
+// etc
 const plutoTexture = loader.load("./images/pluto.jpeg");
+const moonTexture = loader.load("./images/moon.jpg");
+const cloudTexture = loader.load("./images/clouds.png");
+
 
 // Set Materials
 const sunMaterial = new THREE.MeshStandardMaterial({ map: sunTexture });
@@ -39,56 +45,169 @@ const saturnMaterial = new THREE.MeshStandardMaterial({ map: saturnTexture });
 const uranusMaterial = new THREE.MeshStandardMaterial({ map: uranusTexture });
 const neptuneMaterial = new THREE.MeshStandardMaterial({ map: neptuneTexture });
 const plutoMaterial = new THREE.MeshStandardMaterial({ map: plutoTexture });
+const moonMaterial = new THREE.MeshStandardMaterial({ map: moonTexture });
+const cloudMaterial = new THREE.MeshStandardMaterial({ map: cloudTexture, transparent: true });
 
+//
 // Set Mesh
+//
 const geometry = new THREE.SphereGeometry(1, 32, 32); // (radius, widthSegments, heightSegments)
+
+const torusMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff } );
 
 const sunMesh = new THREE.Mesh( geometry, sunMaterial );
 sunMesh.position.set(0, 0, 0);
-sunMesh.scale.setScalar(21.8); // 21.8
+sunMesh.scale.setScalar(17); // 21.8
 scene.add(sunMesh);
 
+// Mercury
 const mercuryGroup = new THREE.Group();
 const mercuryMesh = new THREE.Mesh(geometry, mercuryMaterial);
-createPlanet(scene, mercuryMesh, mercuryGroup, 31.2,0.08);
+createPlanet(scene, mercuryMesh, mercuryGroup, 40, 3);
 
+var mercuryTorusGeometry = new THREE.TorusGeometry(40, 0.03,50,100);
+const mercuryTorus = new THREE.Mesh( mercuryTorusGeometry, torusMaterial );
+mercuryTorus.rotation.x = 0.5*Math.PI;
+mercuryTorus.position.x=0;
+mercuryTorus.add(mercuryMesh);
+scene.add(mercuryTorus);
+
+
+// Venus
 const venusGroup = new THREE.Group();
 const venusMesh = new THREE.Mesh(geometry, venusMaterial);
-createPlanet(scene, venusMesh, venusGroup, 32.1, 0.18);
+createPlanet(scene, venusMesh, venusGroup, 55, 5);
 
+var venusTorusGeometry = new THREE.TorusGeometry(55, 0.03, 50, 100);
+const venusTorus = new THREE.Mesh( venusTorusGeometry, torusMaterial );
+venusTorus.rotation.x = 0.5*Math.PI;
+venusTorus.position.x=0;
+venusTorus.add(venusMesh);
+scene.add(venusTorus);
+
+// Earth & Monn
 const earthGroup = new THREE.Group();
 const earthMesh = new THREE.Mesh(geometry, earthMaterial);
-createPlanet(scene, earthMesh, earthGroup, 33, 0.2);
+createPlanet(scene, earthMesh, earthGroup, 75, 6);
 
+const earthCloudMesh = new THREE.Mesh(geometry, cloudMaterial);
+createPlanet(scene, earthCloudMesh, earthGroup, 75, 6.01 );
+earthCloudMesh.rotation.y = 6;
+
+var earthTorusGeometry = new THREE.TorusGeometry(75, 0.03,50,100);
+const earthTorus = new THREE.Mesh( earthTorusGeometry, torusMaterial );
+earthTorus.rotation.x = 0.5*Math.PI;
+earthTorus.position.x=0;
+earthTorus.add(earthMesh);
+earthTorus.add(earthCloudMesh);
+scene.add(earthTorus);
+
+
+const moonGroup = new THREE.Group();
+const moonMesh = new THREE.Mesh(geometry, moonMaterial);
+createPlanet(scene, moonMesh, moonGroup, 85, 1.2);
+
+var moonTorusGeometry = new THREE.TorusGeometry(10, 0.03,50,100);
+const moonTorus = new THREE.Mesh( moonTorusGeometry, torusMaterial );
+moonTorus.rotation.x = 0.7*Math.PI;
+moonTorus.position.x=75;
+//moonTorus.add(moonMesh);
+scene.add(moonTorus);
+
+// Mars
 const marsGroup = new THREE.Group();
 const marsMesh = new THREE.Mesh(geometry, marsMaterial);
-createPlanet(scene, marsMesh, marsGroup, 34.5, 0.1);
+createPlanet(scene, marsMesh, marsGroup, 95, 4);
 
+var marsTorusGeometry = new THREE.TorusGeometry(95, 0.03,50,100);
+const marsTorus = new THREE.Mesh( marsTorusGeometry, torusMaterial );
+marsTorus.rotation.x = 0.5*Math.PI;
+marsTorus.position.x=0;
+marsTorus.add(marsMesh);
+scene.add(marsTorus);
+
+// Jupiter
 const jupiterGroup = new THREE.Group();
 const jupiterMesh = new THREE.Mesh(geometry, jupiterMaterial);
-createPlanet(scene, jupiterMesh, jupiterGroup, 45, 2.24);
+createPlanet(scene, jupiterMesh, jupiterGroup, 115, 10);
 
+const jupiterCloudMesh = new THREE.Mesh(geometry, cloudMaterial);
+createPlanet(scene, jupiterCloudMesh, jupiterGroup, 115, 10.01 );
+jupiterCloudMesh.rotation.y = 6;
+
+var jupiterTorusGeometry = new THREE.TorusGeometry(115, 0.03,50,100);
+const jupiterTorus = new THREE.Mesh( jupiterTorusGeometry, torusMaterial );
+jupiterTorus.rotation.x = 0.5*Math.PI;
+jupiterTorus.position.x=0;
+jupiterTorus.add(jupiterMesh);
+jupiterTorus.add(jupiterCloudMesh);
+scene.add(jupiterTorus);
+
+// Saturn
 const saturnGroup = new THREE.Group();
 const saturnMesh = new THREE.Mesh(geometry, saturnMaterial);
-createPlanet(scene, saturnMesh, saturnGroup, 60, 1.88);
+createPlanet(scene, saturnMesh, saturnGroup, 150, 8);
 
+var saturnTorusGeometry = new THREE.TorusGeometry(150, 0.03,50,100);
+const saturnTorus = new THREE.Mesh( saturnTorusGeometry, torusMaterial );
+saturnTorus.rotation.x = 0.5*Math.PI;
+saturnTorus.position.x=0;
+saturnTorus.add(jupiterMesh);
+scene.add(saturnTorus);
+
+
+// Uranus
 const uranusGroup = new THREE.Group();
 const uranusMesh = new THREE.Mesh(geometry, uranusMaterial);
-createPlanet(scene, uranusMesh, uranusGroup, 90, 0.8);
+createPlanet(scene, uranusMesh, uranusGroup, 170, 7);
 
+var uranusTorusGeometry = new THREE.TorusGeometry(170, 0.03,50,100);
+const uranusTorus = new THREE.Mesh( uranusTorusGeometry, torusMaterial );
+uranusTorus.rotation.x = 0.5*Math.PI;
+uranusTorus.position.x=0;
+uranusTorus.add(uranusMesh);
+scene.add(uranusTorus);
+
+
+// Neptune
 const neptuneGroup = new THREE.Group();
 const neptuneMesh = new THREE.Mesh(geometry, neptuneMaterial);
-createPlanet(scene, neptuneMesh, neptuneGroup, 120, 0.78);
+createPlanet(scene, neptuneMesh, neptuneGroup, 190, 6.5);
 
+var neptuneTorusGeometry = new THREE.TorusGeometry(190, 0.03,50,100);
+const neptuneTorus = new THREE.Mesh( neptuneTorusGeometry, torusMaterial );
+neptuneTorus.rotation.x = 0.5*Math.PI;
+neptuneTorus.position.x=0;
+neptuneTorus.add(neptuneMesh);
+scene.add(neptuneTorus);
+
+// Pluto
 const plutoGroup = new THREE.Group();
 const plutoMesh = new THREE.Mesh(geometry, plutoMaterial);
-createPlanet(scene, plutoMesh, plutoGroup, 130, 0.036);
+createPlanet(scene, plutoMesh, plutoGroup, 210, 2);
 
+var plutoTorusGeometry = new THREE.TorusGeometry(210, 0.03,50,100);
+const plutoTorus = new THREE.Mesh( plutoTorusGeometry, torusMaterial );
+plutoTorus.rotation.x = 0.5*Math.PI;
+plutoTorus.position.x=0;
+plutoTorus.add(plutoMesh);
+scene.add(plutoTorus);
 
 // Set a source of light
 const light = new THREE.PointLight("white", 1.25); //(color, intensity, distance)
 light.position.set(0, 0, 0);
 scene.add(light);
+
+// Set a sub light
+createSubLigt(240, 240, 0);
+createSubLigt(240, -240, 0);
+createSubLigt(-240, 240, 0);
+createSubLigt(-240, -240, 0);
+createSubLigt(240, 0, 240);
+createSubLigt(-240, 0 ,240);
+createSubLigt(-240, 0, -240);
+createSubLigt(240, 0, -240);
+
 
 // Illuminate the sun
 createSpotlights(scene);
@@ -100,8 +219,11 @@ const animate = function () {
   mercuryMesh.rotation.y += earth_rt_speed * 0.001;
   venusMesh.rotation.y += earth_rt_speed * 0.0004;
   earthMesh.rotation.y += earth_rt_speed;
+  earthCloudMesh.rotation.z += earth_rt_speed * 2;
+  moonMesh.rotation.y += earth_rt_speed * 40;
   marsMesh.rotation.y += earth_rt_speed * 0.5;
   jupiterMesh.rotation.y += earth_rt_speed * 30;
+  jupiterCloudMesh.rotation.z += earth_rt_speed * 30;
   saturnMesh.rotation.y += earth_rt_speed * 20;
   uranusMesh.rotation.y += earth_rt_speed * 5;
   neptuneMesh.rotation.y += earth_rt_speed * 0.003;
@@ -126,50 +248,34 @@ function createSpotlights(scene) {
   var distance = 35;
   var angle = Math.PI/4;
 
-  var spotlight1 = new THREE.SpotLight(color, intensity, distance, angle);
-  spotlight1.position.set(-25, 25, 0);
-  scene.add( spotlight1 );
-  var spotlight2 = new THREE.SpotLight(color, intensity, distance, angle);
-  spotlight2.position.set(25, 25, 0);
-  scene.add( spotlight2 );
-  var spotlight3 = new THREE.SpotLight(color, intensity, distance, angle);
-  spotlight3.position.set(25, -25, 0);
-  scene.add( spotlight3 );
-  var spotlight4 = new THREE.SpotLight(color, intensity, distance, angle);
-  spotlight4.position.set(-25, -25, 0);
-  scene.add( spotlight4 );
-  var spotlight5 = new THREE.SpotLight(color, intensity, distance, angle);
-  spotlight5.position.set(0, 0, 40);
-  scene.add( spotlight5 );
-  var spotlight6 = new THREE.SpotLight(color, intensity, distance, angle);
-  spotlight6.position.set(0, 0, -40);
-  scene.add( spotlight6 );
-  var spotlight7 = new THREE.SpotLight(color, intensity, distance, angle);
-  spotlight7.position.set(25, 0, 25);
-  scene.add( spotlight7 );
-  var spotlight8 = new THREE.SpotLight(color, intensity, distance, angle);
-  spotlight8.position.set(25, 0, -25);
-  scene.add( spotlight8 );
-  var spotlight9 = new THREE.SpotLight(color, intensity, distance, angle);
-  spotlight9.position.set(-25, 0, -25);
-  scene.add( spotlight9 );
-  var spotlight10 = new THREE.SpotLight(color, intensity, distance, angle);
-  spotlight10.position.set(-25, 0, 25);
-  scene.add( spotlight10 );
-  var spotlight11 = new THREE.SpotLight(color, intensity, distance, angle);
-  spotlight11.position.set(0, 25, 25);
-  scene.add( spotlight11 );
-  var spotlight12 = new THREE.SpotLight(color, intensity, distance, angle);
-  spotlight12.position.set(0, 25, -25);
-  scene.add( spotlight12 );
-  var spotlight13 = new THREE.SpotLight(color, intensity, distance, angle);
-  spotlight13.position.set(0, -25, 25);
-  scene.add( spotlight13 );
-  var spotlight14 = new THREE.SpotLight(color, intensity, distance, angle);
-  spotlight14.position.set(0, -25, -25);
-  scene.add( spotlight14 );
+
+  addSpotlight(color, intensity, distance, angle, -25, 25, 0); // 1
+  addSpotlight(color, intensity, distance, angle, 25, 25, 0); // 2
+  addSpotlight(color, intensity, distance, angle, 25, -25, 0); // 3
+  addSpotlight(color, intensity, distance, angle, -25, -25, 0); // 4
+  addSpotlight(color, intensity, distance, angle, 0, 0, 40); // 5
+  addSpotlight(color, intensity, distance, angle, 0, 0, -40); // 6
+  addSpotlight(color, intensity, distance, angle, 25, 0, 25); // 7
+  addSpotlight(color, intensity, distance, angle, 25, 0, -25); // 8
+  addSpotlight(color, intensity, distance, angle, -25, 0, -25); // 9
+  addSpotlight(color, intensity, distance, angle, -25, 0, 25); // 10
+  addSpotlight(color, intensity, distance, angle, 0, 25, 25); // 11
+  addSpotlight(color, intensity, distance, angle, 0, 25, -25); // 12
+  addSpotlight(color, intensity, distance, angle, 0, -25, 25); // 13
+  addSpotlight(color, intensity, distance, angle, 0, -25, -25); // 14
 
 }
 
+function addSpotlight(c, i ,d, a, x, y, z){
+  var spotlight = new THREE.SpotLight(c, i, d, a);
+  spotlight.position.set(x, y, z);
+  scene.add( spotlight );
+}
+
+function createSubLigt(x, y, z){
+  const subLight = new THREE.PointLight("white", 0.05, 0); //(color, intensity, distance)
+  subLight.position.set(x, y, z);
+  scene.add(subLight);
+}
 
 
