@@ -737,5 +737,4 @@ THREE.TrackballControls = function ( object, domElement ) {
 
 };
 
-TrackballControls.prototype = Object.create( EventDispatcher.prototype );
-
+THREE.TrackballControls.prototype = Object.create( THREE.EventDispatcher.prototype );

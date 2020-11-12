@@ -10,6 +10,9 @@ const camera = new THREE.PerspectiveCamera( 75, width / height, 1, 1000 );
 // camera.position.z = 10;
 camera.position.set(50, 10, 50);
 
+const controls = new THREE.TrackballControls(camera);
+controls.update();
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( width, height );
 document.body.appendChild( renderer.domElement );
@@ -214,7 +217,7 @@ createSpotlights(scene);
 
 const animate = function () {
   requestAnimationFrame( animate );
-
+  controls.update();
   sunMesh.rotation.y += earth_rt_speed * 4;
   mercuryMesh.rotation.y += earth_rt_speed * 0.001;
   venusMesh.rotation.y += earth_rt_speed * 0.0004;
