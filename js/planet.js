@@ -6,11 +6,11 @@ var width  = 1333,
 
 // Create scene
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, width / height, 1, 1000 );
+var camera = new THREE.PerspectiveCamera( 75, width / height, 1, 1000 );
 // camera.position.z = 10;
 camera.position.set(50, 10, 50);
 
-const controls = new THREE.TrackballControls(camera);
+var controls = new THREE.TrackballControls(camera);
 controls.update();
 
 const renderer = new THREE.WebGLRenderer();
