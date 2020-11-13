@@ -7,9 +7,9 @@ var width  = 1333,
 // Create scene
 const scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 75, width / height, 1, 1000 );
-// camera.position.z = 10;
 camera.position.set(50, 10, 50);
 
+// TrackballControls for view control
 var controls = new THREE.TrackballControls(camera);
 controls.update();
 
@@ -35,6 +35,8 @@ const neptuneTexture = loader.load("./images/neptune.jpg");
 const plutoTexture = loader.load("./images/pluto.jpeg");
 const moonTexture = loader.load("./images/moon.jpg");
 const cloudTexture = loader.load("./images/clouds.png");
+const saturnRingTexture = loader.load("./images/saturn_ring.jpg");
+const uranusRingTexture = loader.load("./images/uranus_ring.png");
 
 
 // Set Materials
@@ -48,8 +50,11 @@ const saturnMaterial = new THREE.MeshStandardMaterial({ map: saturnTexture });
 const uranusMaterial = new THREE.MeshStandardMaterial({ map: uranusTexture });
 const neptuneMaterial = new THREE.MeshStandardMaterial({ map: neptuneTexture });
 const plutoMaterial = new THREE.MeshStandardMaterial({ map: plutoTexture });
+
 const moonMaterial = new THREE.MeshStandardMaterial({ map: moonTexture });
 const cloudMaterial = new THREE.MeshStandardMaterial({ map: cloudTexture, transparent: true });
+const saturnRingMaterial = new THREE.MeshStandardMaterial({ map: saturnRingTexture });
+const uranusRingMaterial = new THREE.MeshStandardMaterial({ map: uranusRingTexture });
 
 //
 // Set Mesh
@@ -112,7 +117,7 @@ createPlanet(scene, moonMesh, moonGroup, 85, 1.2);
 
 var moonTorusGeometry = new THREE.TorusGeometry(10, 0.03,50,100);
 const moonTorus = new THREE.Mesh( moonTorusGeometry, torusMaterial );
-moonTorus.rotation.x = 0.7*Math.PI;
+moonTorus.rotation.x = 0.03*Math.PI;
 moonTorus.position.x=75;
 //moonTorus.add(moonMesh);
 scene.add(moonTorus);
@@ -151,6 +156,12 @@ const saturnGroup = new THREE.Group();
 const saturnMesh = new THREE.Mesh(geometry, saturnMaterial);
 createPlanet(scene, saturnMesh, saturnGroup, 150, 8);
 
+// Ring
+var saturnRingGeometry = new THREE.RingGeometry( 1.3, 1.8, 40 );
+const saturnRing = new THREE.Mesh(saturnRingGeometry, saturnRingMaterial);
+saturnRing.rotation.z=Math.PI;
+saturnMesh.add(saturnRing);
+
 var saturnTorusGeometry = new THREE.TorusGeometry(150, 0.03,50,100);
 const saturnTorus = new THREE.Mesh( saturnTorusGeometry, torusMaterial );
 saturnTorus.rotation.x = 0.5*Math.PI;
@@ -163,6 +174,12 @@ scene.add(saturnTorus);
 const uranusGroup = new THREE.Group();
 const uranusMesh = new THREE.Mesh(geometry, uranusMaterial);
 createPlanet(scene, uranusMesh, uranusGroup, 170, 7);
+
+// Ring
+var uranusRingGeometry = new THREE.RingGeometry( 1.3, 1.8, 40 );
+const uranusRing = new THREE.Mesh(uranusRingGeometry, uranusRingMaterial);
+uranusRing.rotation.z=Math.PI;
+uranusMesh.add(uranusRing);
 
 var uranusTorusGeometry = new THREE.TorusGeometry(170, 0.03,50,100);
 const uranusTorus = new THREE.Mesh( uranusTorusGeometry, torusMaterial );
@@ -217,7 +234,9 @@ createSpotlights(scene);
 
 const animate = function () {
   requestAnimationFrame( animate );
+
   controls.update();
+
   sunMesh.rotation.y += earth_rt_speed * 4;
   mercuryMesh.rotation.y += earth_rt_speed * 0.001;
   venusMesh.rotation.y += earth_rt_speed * 0.0004;
@@ -280,5 +299,4 @@ function createSubLigt(x, y, z){
   subLight.position.set(x, y, z);
   scene.add(subLight);
 }
-
 
