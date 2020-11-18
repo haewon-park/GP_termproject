@@ -17,6 +17,19 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( width, height );
 document.body.appendChild( renderer.domElement );
 
+// Control Speed
+var speed=0.001;
+
+document.getElementById("Speedup").onclick = function (event) {
+  speed = speed*10;
+};
+document.getElementById("Speeddown").onclick = function (event) {
+  speed = speed*0.1;
+};
+document.getElementById("Speedreset").onclick = function (event) {
+  speed = 0.001;
+};
+
 // Set Texture
 const loader = new THREE.TextureLoader();
 
@@ -267,13 +280,11 @@ function createPlanet(scene, mesh, group, x, scale) {
   scene.add(group);
 }
 
-
 function createSpotlights(scene) {
   var color = 'white';
   var intensity = 3;
   var distance = 35;
   var angle = Math.PI/4;
-
 
   addSpotlight(color, intensity, distance, angle, -25, 25, 0); // 1
   addSpotlight(color, intensity, distance, angle, 25, 25, 0); // 2
@@ -313,4 +324,3 @@ function createStars(radius, segments) {
       })
   );
 }
-
