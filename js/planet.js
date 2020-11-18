@@ -213,6 +213,10 @@ plutoTorus.position.x=0;
 plutoTorus.add(plutoMesh);
 scene.add(plutoTorus);
 
+// Background
+var stars = createStars(90, 64);
+scene.add(stars);
+
 // Set a source of light
 const light = new THREE.PointLight("white", 1.25); //(color, intensity, distance)
 light.position.set(0, 0, 0);
@@ -300,3 +304,16 @@ function createSubLigt(x, y, z){
   scene.add(subLight);
 }
 
+<<<<<<< HEAD
+=======
+function createStars(radius, segments) {
+  return new THREE.Mesh(
+      new THREE.SphereGeometry(radius, segments, segments),
+      new THREE.MeshBasicMaterial({
+        map:  THREE.ImageUtils.loadTexture('images/galaxy.png'),
+        side: THREE.BackSide
+      })
+  );
+}
+
+>>>>>>> haewon
