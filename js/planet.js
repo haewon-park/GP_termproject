@@ -124,8 +124,6 @@ const moonTorus = new THREE.Mesh( moonTorusGeometry, torusMaterial );
 moonTorus.rotation.x = -0.04*Math.PI;
 moonTorus.position.x=75;
 moonTorus.add(moonMesh);
-//moonTorus.add(moonMesh);
-//scene.add(moonTorus);
 earthTorus.add(moonTorus);
 
 // Mars
@@ -149,15 +147,15 @@ createPlanet(scene, jupiterMesh, jupiterGroup, 115, 10);
 
 
 const jupiterCloudMesh = new THREE.Mesh(geometry, cloudMaterial);
-createPlanet(scene, jupiterCloudMesh, jupiterGroup, 115, 10.01 );
+createPlanet(scene, jupiterCloudMesh, jupiterGroup, 0, 1.01 );
 jupiterCloudMesh.rotation.y = 6;
+jupiterMesh.add(jupiterCloudMesh);
 
 var jupiterTorusGeometry = new THREE.TorusGeometry(115, 0.03,50,100);
 const jupiterTorus = new THREE.Mesh( jupiterTorusGeometry, torusMaterial );
 jupiterTorus.rotation.x = 0.5*Math.PI;
 jupiterTorus.position.x=0;
 jupiterTorus.add(jupiterMesh);
-jupiterTorus.add(jupiterCloudMesh);
 scene.add(jupiterTorus);
 
 // Saturn
