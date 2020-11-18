@@ -65,12 +65,13 @@ const torusMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff } );
 
 const sunMesh = new THREE.Mesh( geometry, sunMaterial );
 sunMesh.position.set(0, 0, 0);
-sunMesh.scale.setScalar(17); // 21.8
+sunMesh.scale.setScalar(20); // 21.8
 scene.add(sunMesh);
 
 // Mercury
 const mercuryGroup = new THREE.Group();
 const mercuryMesh = new THREE.Mesh(geometry, mercuryMaterial);
+mercuryMesh.rotation.x = -0.4998*Math.PI;
 createPlanet(scene, mercuryMesh, mercuryGroup, 40, 3);
 
 var mercuryTorusGeometry = new THREE.TorusGeometry(40, 0.03,50,100);
@@ -84,6 +85,7 @@ scene.add(mercuryTorus);
 // Venus
 const venusGroup = new THREE.Group();
 const venusMesh = new THREE.Mesh(geometry, venusMaterial);
+venusMesh.rotation.x = 0.49*Math.PI;
 createPlanet(scene, venusMesh, venusGroup, 55, 5);
 
 var venusTorusGeometry = new THREE.TorusGeometry(55, 0.03, 50, 100);
@@ -96,6 +98,7 @@ scene.add(venusTorus);
 // Earth & Monn
 const earthGroup = new THREE.Group();
 const earthMesh = new THREE.Mesh(geometry, earthMaterial);
+earthMesh.rotation.x = -0.37*Math.PI; // 0.37
 createPlanet(scene, earthMesh, earthGroup, 75, 6);
 
 const earthCloudMesh = new THREE.Mesh(geometry, cloudMaterial);
@@ -113,18 +116,22 @@ scene.add(earthTorus);
 
 const moonGroup = new THREE.Group();
 const moonMesh = new THREE.Mesh(geometry, moonMaterial);
-createPlanet(scene, moonMesh, moonGroup, 85, 1.2);
+moonMesh.rotation.x = -0.446*Math.PI;
+createPlanet(scene, moonMesh, moonGroup, 10, 1.2);
 
 var moonTorusGeometry = new THREE.TorusGeometry(10, 0.03,50,100);
 const moonTorus = new THREE.Mesh( moonTorusGeometry, torusMaterial );
-moonTorus.rotation.x = 0.03*Math.PI;
+moonTorus.rotation.x = -0.04*Math.PI;
 moonTorus.position.x=75;
+moonTorus.add(moonMesh);
 //moonTorus.add(moonMesh);
-scene.add(moonTorus);
+//scene.add(moonTorus);
+earthTorus.add(moonTorus);
 
 // Mars
 const marsGroup = new THREE.Group();
 const marsMesh = new THREE.Mesh(geometry, marsMaterial);
+marsMesh.rotation.x = -0.36*Math.PI;
 createPlanet(scene, marsMesh, marsGroup, 95, 4);
 
 var marsTorusGeometry = new THREE.TorusGeometry(95, 0.03,50,100);
@@ -137,7 +144,9 @@ scene.add(marsTorus);
 // Jupiter
 const jupiterGroup = new THREE.Group();
 const jupiterMesh = new THREE.Mesh(geometry, jupiterMaterial);
+jupiterMesh.rotation.x = -0.483*Math.PI;
 createPlanet(scene, jupiterMesh, jupiterGroup, 115, 10);
+
 
 const jupiterCloudMesh = new THREE.Mesh(geometry, cloudMaterial);
 createPlanet(scene, jupiterCloudMesh, jupiterGroup, 115, 10.01 );
@@ -154,13 +163,17 @@ scene.add(jupiterTorus);
 // Saturn
 const saturnGroup = new THREE.Group();
 const saturnMesh = new THREE.Mesh(geometry, saturnMaterial);
+saturnMesh.rotation.x = -0.352*Math.PI;
 createPlanet(scene, saturnMesh, saturnGroup, 150, 8);
 
 // Ring
 var saturnRingGeometry = new THREE.RingGeometry( 1.3, 1.8, 40 );
-const saturnRing = new THREE.Mesh(saturnRingGeometry, saturnRingMaterial);
-saturnRing.rotation.z=Math.PI;
-saturnMesh.add(saturnRing);
+const saturnRing1 = new THREE.Mesh(saturnRingGeometry, saturnRingMaterial);
+const saturnRing2 = new THREE.Mesh(saturnRingGeometry, saturnRingMaterial);
+saturnRing1.rotation.x=0.5 * Math.PI;
+saturnRing2.rotation.x=-0.5 * Math.PI;
+saturnMesh.add(saturnRing1);
+saturnMesh.add(saturnRing2);
 
 var saturnTorusGeometry = new THREE.TorusGeometry(150, 0.03,50,100);
 const saturnTorus = new THREE.Mesh( saturnTorusGeometry, torusMaterial );
@@ -173,15 +186,19 @@ scene.add(saturnTorus);
 // Uranus
 const uranusGroup = new THREE.Group();
 const uranusMesh = new THREE.Mesh(geometry, uranusMaterial);
-createPlanet(scene, uranusMesh, uranusGroup, 170, 7);
+uranusMesh.rotation.x = 0.04*Math.PI;
+createPlanet(scene, uranusMesh, uranusGroup, 180, 7);
 
 // Ring
 var uranusRingGeometry = new THREE.RingGeometry( 1.3, 1.8, 40 );
-const uranusRing = new THREE.Mesh(uranusRingGeometry, uranusRingMaterial);
-uranusRing.rotation.z=Math.PI;
-uranusMesh.add(uranusRing);
+const uranusRing1 = new THREE.Mesh(uranusRingGeometry, uranusRingMaterial);
+const uranusRing2 = new THREE.Mesh(uranusRingGeometry, uranusRingMaterial);
+uranusRing1.rotation.x=0.5*Math.PI;
+uranusRing2.rotation.x=-0.5*Math.PI;
+uranusMesh.add(uranusRing1);
+uranusMesh.add(uranusRing2);
 
-var uranusTorusGeometry = new THREE.TorusGeometry(170, 0.03,50,100);
+var uranusTorusGeometry = new THREE.TorusGeometry(180, 0.03,50,100);
 const uranusTorus = new THREE.Mesh( uranusTorusGeometry, torusMaterial );
 uranusTorus.rotation.x = 0.5*Math.PI;
 uranusTorus.position.x=0;
@@ -192,9 +209,10 @@ scene.add(uranusTorus);
 // Neptune
 const neptuneGroup = new THREE.Group();
 const neptuneMesh = new THREE.Mesh(geometry, neptuneMaterial);
-createPlanet(scene, neptuneMesh, neptuneGroup, 190, 6.5);
+neptuneMesh.rotation.x = -0.34*Math.PI;
+createPlanet(scene, neptuneMesh, neptuneGroup, 200, 6.5);
 
-var neptuneTorusGeometry = new THREE.TorusGeometry(190, 0.03,50,100);
+var neptuneTorusGeometry = new THREE.TorusGeometry(200, 0.03,50,100);
 const neptuneTorus = new THREE.Mesh( neptuneTorusGeometry, torusMaterial );
 neptuneTorus.rotation.x = 0.5*Math.PI;
 neptuneTorus.position.x=0;
@@ -204,9 +222,10 @@ scene.add(neptuneTorus);
 // Pluto
 const plutoGroup = new THREE.Group();
 const plutoMesh = new THREE.Mesh(geometry, plutoMaterial);
-createPlanet(scene, plutoMesh, plutoGroup, 210, 2);
+plutoMesh.rotation.x = 0.16*Math.PI;
+createPlanet(scene, plutoMesh, plutoGroup, 220, 2);
 
-var plutoTorusGeometry = new THREE.TorusGeometry(210, 0.03,50,100);
+var plutoTorusGeometry = new THREE.TorusGeometry(220, 0.03,50,100);
 const plutoTorus = new THREE.Mesh( plutoTorusGeometry, torusMaterial );
 plutoTorus.rotation.x = 0.5*Math.PI;
 plutoTorus.position.x=0;
@@ -237,9 +256,10 @@ const animate = function () {
 
   controls.update();
 
+  // rotation
   sunMesh.rotation.y += earth_rt_speed * 4;
-  mercuryMesh.rotation.y += earth_rt_speed * 0.001;
-  venusMesh.rotation.y += earth_rt_speed * 0.0004;
+  mercuryMesh.rotation.y += earth_rt_speed * 0.1;
+  venusMesh.rotation.y += earth_rt_speed * 0.4;
   earthMesh.rotation.y += earth_rt_speed;
   earthCloudMesh.rotation.z += earth_rt_speed * 2;
   moonMesh.rotation.y += earth_rt_speed * 40;
@@ -248,8 +268,20 @@ const animate = function () {
   jupiterCloudMesh.rotation.z += earth_rt_speed * 30;
   saturnMesh.rotation.y += earth_rt_speed * 20;
   uranusMesh.rotation.y += earth_rt_speed * 5;
-  neptuneMesh.rotation.y += earth_rt_speed * 0.003;
-  plutoMesh.rotation.y += earth_rt_speed * 0.001;
+  neptuneMesh.rotation.y += earth_rt_speed * 0.3;
+  plutoMesh.rotation.y += earth_rt_speed * 0.1;
+
+  // revolution
+  mercuryTorus.rotation.z -= 1.6*earth_rt_speed;
+  venusTorus.rotation.z -= 1.2*earth_rt_speed;
+  earthTorus.rotation.z -= earth_rt_speed;
+  moonTorus.rotation.z -=0.1*earth_rt_speed;
+  marsTorus.rotation.z -= 0.8*earth_rt_speed;
+  jupiterTorus.rotation.z -= 0.4*earth_rt_speed;
+  saturnTorus.rotation.z -= 0.3*earth_rt_speed;
+  uranusTorus.rotation.z -= 0.2*earth_rt_speed;
+  neptuneTorus.rotation.z -= 0.1*earth_rt_speed;
+  plutoTorus.rotation.z -= 0.1*earth_rt_speed;
 
   renderer.render( scene, camera );
 };
