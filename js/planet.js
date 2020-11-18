@@ -304,8 +304,6 @@ function createSubLigt(x, y, z){
   scene.add(subLight);
 }
 
-<<<<<<< HEAD
-=======
 function createStars(radius, segments) {
   return new THREE.Mesh(
       new THREE.SphereGeometry(radius, segments, segments),
@@ -316,4 +314,3 @@ function createStars(radius, segments) {
   );
 }
 
->>>>>>> haewon
