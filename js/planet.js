@@ -2,7 +2,7 @@ const earth_rt_speed = 0.0005;
 
 // Set width, height size
 var width  = 1333,
-		height = window.innerHeight;
+    height = window.innerHeight;
 
 // Create scene
 const scene = new THREE.Scene();
@@ -299,4 +299,3 @@ function createSubLigt(x, y, z){
   subLight.position.set(x, y, z);
   scene.add(subLight);
 }
-
