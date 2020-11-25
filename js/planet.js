@@ -10,6 +10,7 @@ var camera = new THREE.PerspectiveCamera( 75, width / height, 1, 1000 );
 camera.position.set(50, 10, 50);
 
 // TrackballControls for view control
+var flag = 1 // if flag == 1, use TrackballContrls
 var controls = new THREE.TrackballControls(camera);
 controls.update();
 
@@ -77,10 +78,9 @@ createPlanet(scene, mercuryMesh, mercuryGroup, 40, 3);
 var mercuryTorusGeometry = new THREE.TorusGeometry(40, 0.03,50,100);
 const mercuryTorus = new THREE.Mesh( mercuryTorusGeometry, torusMaterial );
 mercuryTorus.rotation.x = 0.5*Math.PI;
-mercuryTorus.position.x=0;
+mercuryTorus.position.x = 0;
 mercuryTorus.add(mercuryMesh);
 scene.add(mercuryTorus);
-
 
 // Venus
 const venusGroup = new THREE.Group();
@@ -91,7 +91,7 @@ createPlanet(scene, venusMesh, venusGroup, 55, 5);
 var venusTorusGeometry = new THREE.TorusGeometry(55, 0.03, 50, 100);
 const venusTorus = new THREE.Mesh( venusTorusGeometry, torusMaterial );
 venusTorus.rotation.x = 0.5*Math.PI;
-venusTorus.position.x=0;
+venusTorus.position.x = 0;
 venusTorus.add(venusMesh);
 scene.add(venusTorus);
 
@@ -135,7 +135,7 @@ createPlanet(scene, marsMesh, marsGroup, 95, 4);
 var marsTorusGeometry = new THREE.TorusGeometry(95, 0.03,50,100);
 const marsTorus = new THREE.Mesh( marsTorusGeometry, torusMaterial );
 marsTorus.rotation.x = 0.5*Math.PI;
-marsTorus.position.x=0;
+marsTorus.position.x = 0;
 marsTorus.add(marsMesh);
 scene.add(marsTorus);
 
@@ -154,7 +154,7 @@ jupiterMesh.add(jupiterCloudMesh);
 var jupiterTorusGeometry = new THREE.TorusGeometry(115, 0.03,50,100);
 const jupiterTorus = new THREE.Mesh( jupiterTorusGeometry, torusMaterial );
 jupiterTorus.rotation.x = 0.5*Math.PI;
-jupiterTorus.position.x=0;
+jupiterTorus.position.x = 0;
 jupiterTorus.add(jupiterMesh);
 scene.add(jupiterTorus);
 
@@ -168,15 +168,15 @@ createPlanet(scene, saturnMesh, saturnGroup, 150, 8);
 var saturnRingGeometry = new THREE.RingGeometry( 1.3, 1.8, 40 );
 const saturnRing1 = new THREE.Mesh(saturnRingGeometry, saturnRingMaterial);
 const saturnRing2 = new THREE.Mesh(saturnRingGeometry, saturnRingMaterial);
-saturnRing1.rotation.x=0.5 * Math.PI;
-saturnRing2.rotation.x=-0.5 * Math.PI;
+saturnRing1.rotation.x = 0.5 * Math.PI;
+saturnRing2.rotation.x = -0.5 * Math.PI;
 saturnMesh.add(saturnRing1);
 saturnMesh.add(saturnRing2);
 
 var saturnTorusGeometry = new THREE.TorusGeometry(150, 0.03,50,100);
 const saturnTorus = new THREE.Mesh( saturnTorusGeometry, torusMaterial );
 saturnTorus.rotation.x = 0.5*Math.PI;
-saturnTorus.position.x=0;
+saturnTorus.position.x = 0;
 saturnTorus.add(jupiterMesh);
 scene.add(saturnTorus);
 
@@ -191,15 +191,15 @@ createPlanet(scene, uranusMesh, uranusGroup, 180, 7);
 var uranusRingGeometry = new THREE.RingGeometry( 1.3, 1.8, 40 );
 const uranusRing1 = new THREE.Mesh(uranusRingGeometry, uranusRingMaterial);
 const uranusRing2 = new THREE.Mesh(uranusRingGeometry, uranusRingMaterial);
-uranusRing1.rotation.x=0.5*Math.PI;
-uranusRing2.rotation.x=-0.5*Math.PI;
+uranusRing1.rotation.x = 0.5*Math.PI;
+uranusRing2.rotation.x = -0.5*Math.PI;
 uranusMesh.add(uranusRing1);
 uranusMesh.add(uranusRing2);
 
 var uranusTorusGeometry = new THREE.TorusGeometry(180, 0.03,50,100);
 const uranusTorus = new THREE.Mesh( uranusTorusGeometry, torusMaterial );
 uranusTorus.rotation.x = 0.5*Math.PI;
-uranusTorus.position.x=0;
+uranusTorus.position.x = 0;
 uranusTorus.add(uranusMesh);
 scene.add(uranusTorus);
 
@@ -213,7 +213,7 @@ createPlanet(scene, neptuneMesh, neptuneGroup, 200, 6.5);
 var neptuneTorusGeometry = new THREE.TorusGeometry(200, 0.03,50,100);
 const neptuneTorus = new THREE.Mesh( neptuneTorusGeometry, torusMaterial );
 neptuneTorus.rotation.x = 0.5*Math.PI;
-neptuneTorus.position.x=0;
+neptuneTorus.position.x = 0;
 neptuneTorus.add(neptuneMesh);
 scene.add(neptuneTorus);
 
@@ -226,7 +226,7 @@ createPlanet(scene, plutoMesh, plutoGroup, 220, 2);
 var plutoTorusGeometry = new THREE.TorusGeometry(220, 0.03,50,100);
 const plutoTorus = new THREE.Mesh( plutoTorusGeometry, torusMaterial );
 plutoTorus.rotation.x = 0.5*Math.PI;
-plutoTorus.position.x=0;
+plutoTorus.position.x = 0;
 plutoTorus.add(plutoMesh);
 scene.add(plutoTorus);
 
@@ -253,10 +253,27 @@ createSubLigt(240, 0, -240);
 // Illuminate the sun
 createSpotlights(scene);
 
+// Close up taget
+var closeUpPlanet = 0
+
+document.getElementById("SunBtn").onclick = function (event) {
+        camera.position.set(0, 30, 50);
+        closeUpPlanet = 'sun'
+        flag = 1;
+    };
+document.getElementById("MercuryBtn").onclick = function (event) {
+        flag = 0;
+        closeUpPlanet = 'mercury';
+    };
+
+var tmp = 50;
+
 const animate = function () {
   requestAnimationFrame( animate );
 
-  controls.update();
+  // Use trackball
+  if(flag == 1)
+    controls.update();
 
   // rotation
   sunMesh.rotation.y += earth_rt_speed * 4;
@@ -284,6 +301,17 @@ const animate = function () {
   uranusTorus.rotation.z -= 0.2*earth_rt_speed;
   neptuneTorus.rotation.z -= 0.1*earth_rt_speed;
   plutoTorus.rotation.z -= 0.1*earth_rt_speed;
+
+  // Close up planet
+  if(closeUpPlanet == 'sun')
+  {
+
+  }
+  else if(closeUpPlanet == 'mercury')
+  {
+      camera.position.set(mercuryTorus.position.x, mercuryTorus.position.y, mercuryTorus.position.z);
+
+  }
 
   renderer.render( scene, camera );
 };
