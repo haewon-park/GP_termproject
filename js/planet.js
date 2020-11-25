@@ -66,6 +66,7 @@ var jupiterPosition = 115;
 var saturnPosition = 150;
 var uranusPosition = 180;
 var neptunePosition = 200;
+var plutoPosition = 220
 
 
 //
@@ -280,7 +281,7 @@ document.getElementById("MercuryBtn").onclick = function (event) {
           closeUpPlanet = 'mercury';
           init_position();
 
-          sunMesh.position.x -= mercuryPosition;
+          sunMesh.position.x -= 1.5*mercuryPosition;
           mercuryTorus.position.x -= mercuryPosition;
           venusTorus.position.x -= mercuryPosition;
           earthTorus.position.x -= mercuryPosition;
@@ -289,6 +290,7 @@ document.getElementById("MercuryBtn").onclick = function (event) {
           saturnTorus.position.x -= mercuryPosition;
           uranusTorus.position.x -= mercuryPosition;
           neptuneTorus.position.x -= mercuryPosition;
+          plutoTorus.position.x -= mercuryPosition;
         }
         camera.position.set(0, 30, 50);
         controls.update();
@@ -309,6 +311,7 @@ document.getElementById("VenusBtn").onclick = function (event) {
           saturnTorus.position.x -= venusPosition;
           uranusTorus.position.x -= venusPosition;
           neptuneTorus.position.x -= venusPosition;
+          plutoTorus.position.x -= venusPosition;
         }
         camera.position.set(0, 30, 50);
         controls.update();
@@ -329,6 +332,7 @@ document.getElementById("EarthBtn").onclick = function (event) {
           saturnTorus.position.x -= earthPosition;
           uranusTorus.position.x -= earthPosition;
           neptuneTorus.position.x -= earthPosition;
+          plutoTorus.position.x -= earthPosition;
         }
         camera.position.set(0, 30, 50);
         controls.update();
@@ -349,6 +353,7 @@ document.getElementById("MarsBtn").onclick = function (event) {
           saturnTorus.position.x -= marsPosition;
           uranusTorus.position.x -= marsPosition;
           neptuneTorus.position.x -= marsPosition;
+          plutoTorus.position.x -= marsPosition;
         }
         camera.position.set(0, 30, 50);
         controls.update();
@@ -369,6 +374,7 @@ document.getElementById("JupiterBtn").onclick = function (event) {
           saturnTorus.position.x -= jupiterPosition;
           uranusTorus.position.x -= jupiterPosition;
           neptuneTorus.position.x -= jupiterPosition;
+          plutoTorus.position.x -= jupiterPosition;
         }
         camera.position.set(0, 30, 50);
         controls.update();
@@ -389,6 +395,7 @@ document.getElementById("SaturnBtn").onclick = function (event) {
           saturnTorus.position.x -= saturnPosition;
           uranusTorus.position.x -= saturnPosition;
           neptuneTorus.position.x -= saturnPosition;
+          plutoTorus.position.x -= saturnPosition;
         }
         camera.position.set(0, 30, 50);
         controls.update();
@@ -409,6 +416,7 @@ document.getElementById("UranusBtn").onclick = function (event) {
           saturnTorus.position.x -= uranusPosition;
           uranusTorus.position.x -= uranusPosition;
           neptuneTorus.position.x -= uranusPosition;
+          plutoTorus.position.x -= uranusPosition;
         }
         camera.position.set(0, 30, 50);
         controls.update();
@@ -429,11 +437,32 @@ document.getElementById("NeptuneBtn").onclick = function (event) {
           saturnTorus.position.x -= neptunePosition;
           uranusTorus.position.x -= neptunePosition;
           neptuneTorus.position.x -= neptunePosition;
+          plutoTorus.position.x -= neptunePosition;
         }
         camera.position.set(0, 30, 50);
         controls.update();
     };
+document.getElementById("PlutoBtn").onclick = function (event) {
 
+        if (closeUpPlanet != 'pluto')
+        {
+          closeUpPlanet = 'pluto';
+          init_position();
+
+          sunMesh.position.x -= plutoPosition;
+          mercuryTorus.position.x -= plutoPosition;
+          venusTorus.position.x -= plutoPosition;
+          earthTorus.position.x -= plutoPosition;
+          marsTorus.position.x -= plutoPosition;
+          jupiterTorus.position.x -= plutoPosition;
+          saturnTorus.position.x -= plutoPosition;
+          uranusTorus.position.x -= plutoPosition;
+          neptuneTorus.position.x -= plutoPosition;
+          plutoTorus.position.x -= plutoPosition;
+        }
+        camera.position.set(0, 30, 50);
+        controls.update();
+    };
 
 
 // Speed control buttons
@@ -444,7 +473,9 @@ document.getElementById("SpeedUpBtn").onclick = function (event) {
         earth_rt_speed += 0.005;
     };
 document.getElementById("SpeedDownBtn").onclick = function (event) {
-        earth_rt_speed -= 0.005;
+
+        if(earth_rt_speed > 0)
+          earth_rt_speed -= 0.005;
     };
 document.getElementById("PlanetPositionResetBtn").onclick = function (event) {
         earth_rt_speed = 0;
@@ -564,6 +595,7 @@ function init_position(){
         saturnTorus.position.x = 0;
         uranusTorus.position.x = 0;
         neptuneTorus.position.x = 0;
+        plutoTorus.position.x = 0;
 
 }
 
