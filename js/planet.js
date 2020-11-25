@@ -1,4 +1,4 @@
-const earth_rt_speed = 0.0005;
+var earth_rt_speed = 0;
 
 // Set width, height size
 var width  = 1333,
@@ -10,7 +10,6 @@ var camera = new THREE.PerspectiveCamera( 75, width / height, 1, 1000 );
 camera.position.set(50, 10, 50);
 
 // TrackballControls for view control
-var flag = 1 // if flag == 1, use TrackballContrls
 var controls = new THREE.TrackballControls(camera);
 controls.update();
 
@@ -56,6 +55,18 @@ const moonMaterial = new THREE.MeshStandardMaterial({ map: moonTexture });
 const cloudMaterial = new THREE.MeshStandardMaterial({ map: cloudTexture, transparent: true });
 const saturnRingMaterial = new THREE.MeshStandardMaterial({ map: saturnRingTexture });
 const uranusRingMaterial = new THREE.MeshStandardMaterial({ map: uranusRingTexture });
+
+
+var sunPosition = 0;
+var mercuryPosition = 40;
+var venusPosition = 55;
+var earthPosition = 75;
+var marsPosition = 95;
+var jupiterPosition = 115;
+var saturnPosition = 150;
+var uranusPosition = 180;
+var neptunePosition = 200;
+
 
 //
 // Set Mesh
@@ -177,7 +188,7 @@ var saturnTorusGeometry = new THREE.TorusGeometry(150, 0.03,50,100);
 const saturnTorus = new THREE.Mesh( saturnTorusGeometry, torusMaterial );
 saturnTorus.rotation.x = 0.5*Math.PI;
 saturnTorus.position.x = 0;
-saturnTorus.add(jupiterMesh);
+saturnTorus.add(saturnMesh);
 scene.add(saturnTorus);
 
 
@@ -259,21 +270,202 @@ var closeUpPlanet = 0
 document.getElementById("SunBtn").onclick = function (event) {
         camera.position.set(0, 30, 50);
         closeUpPlanet = 'sun'
-        flag = 1;
+        init_position();
+
     };
 document.getElementById("MercuryBtn").onclick = function (event) {
-        flag = 0;
-        closeUpPlanet = 'mercury';
+
+        if (closeUpPlanet != 'mercury')
+        {
+          closeUpPlanet = 'mercury';
+          init_position();
+
+          sunMesh.position.x -= mercuryPosition;
+          mercuryTorus.position.x -= mercuryPosition;
+          venusTorus.position.x -= mercuryPosition;
+          earthTorus.position.x -= mercuryPosition;
+          marsTorus.position.x -= mercuryPosition;
+          jupiterTorus.position.x -= mercuryPosition;
+          saturnTorus.position.x -= mercuryPosition;
+          uranusTorus.position.x -= mercuryPosition;
+          neptuneTorus.position.x -= mercuryPosition;
+        }
+        camera.position.set(0, 30, 50);
+        controls.update();
+    };
+document.getElementById("VenusBtn").onclick = function (event) {
+
+        if (closeUpPlanet != 'venus')
+        {
+          closeUpPlanet = 'venus';
+          init_position();
+
+          sunMesh.position.x -= venusPosition;
+          mercuryTorus.position.x -= venusPosition;
+          venusTorus.position.x -= venusPosition;
+          earthTorus.position.x -= venusPosition;
+          marsTorus.position.x -= venusPosition;
+          jupiterTorus.position.x -= venusPosition;
+          saturnTorus.position.x -= venusPosition;
+          uranusTorus.position.x -= venusPosition;
+          neptuneTorus.position.x -= venusPosition;
+        }
+        camera.position.set(0, 30, 50);
+        controls.update();
+    };
+document.getElementById("EarthBtn").onclick = function (event) {
+
+        if (closeUpPlanet != 'earth')
+        {
+          closeUpPlanet = 'earth';
+          init_position();
+
+          sunMesh.position.x -= earthPosition;
+          mercuryTorus.position.x -= earthPosition;
+          venusTorus.position.x -= earthPosition;
+          earthTorus.position.x -= earthPosition;
+          marsTorus.position.x -= earthPosition;
+          jupiterTorus.position.x -= earthPosition;
+          saturnTorus.position.x -= earthPosition;
+          uranusTorus.position.x -= earthPosition;
+          neptuneTorus.position.x -= earthPosition;
+        }
+        camera.position.set(0, 30, 50);
+        controls.update();
+    };
+document.getElementById("MarsBtn").onclick = function (event) {
+
+        if (closeUpPlanet != 'mars')
+        {
+          closeUpPlanet = 'mars';
+          init_position();
+
+          sunMesh.position.x -= marsPosition;
+          mercuryTorus.position.x -= marsPosition;
+          venusTorus.position.x -= marsPosition;
+          earthTorus.position.x -= marsPosition;
+          marsTorus.position.x -= marsPosition;
+          jupiterTorus.position.x -= marsPosition;
+          saturnTorus.position.x -= marsPosition;
+          uranusTorus.position.x -= marsPosition;
+          neptuneTorus.position.x -= marsPosition;
+        }
+        camera.position.set(0, 30, 50);
+        controls.update();
+    };
+document.getElementById("JupiterBtn").onclick = function (event) {
+
+        if (closeUpPlanet != 'jupiter')
+        {
+          closeUpPlanet = 'jupiter';
+          init_position();
+
+          sunMesh.position.x -= jupiterPosition;
+          mercuryTorus.position.x -= jupiterPosition;
+          venusTorus.position.x -= jupiterPosition;
+          earthTorus.position.x -= jupiterPosition;
+          marsTorus.position.x -= jupiterPosition;
+          jupiterTorus.position.x -= jupiterPosition;
+          saturnTorus.position.x -= jupiterPosition;
+          uranusTorus.position.x -= jupiterPosition;
+          neptuneTorus.position.x -= jupiterPosition;
+        }
+        camera.position.set(0, 30, 50);
+        controls.update();
+    };
+document.getElementById("SaturnBtn").onclick = function (event) {
+
+        if (closeUpPlanet != 'saturn')
+        {
+          closeUpPlanet = 'saturn';
+          init_position();
+
+          sunMesh.position.x -= saturnPosition;
+          mercuryTorus.position.x -= saturnPosition;
+          venusTorus.position.x -= saturnPosition;
+          earthTorus.position.x -= saturnPosition;
+          marsTorus.position.x -= saturnPosition;
+          jupiterTorus.position.x -= saturnPosition;
+          saturnTorus.position.x -= saturnPosition;
+          uranusTorus.position.x -= saturnPosition;
+          neptuneTorus.position.x -= saturnPosition;
+        }
+        camera.position.set(0, 30, 50);
+        controls.update();
+    };
+document.getElementById("UranusBtn").onclick = function (event) {
+
+        if (closeUpPlanet != 'uranus')
+        {
+          closeUpPlanet = 'uranus';
+          init_position();
+
+          sunMesh.position.x -= uranusPosition;
+          mercuryTorus.position.x -= uranusPosition;
+          venusTorus.position.x -= uranusPosition;
+          earthTorus.position.x -= uranusPosition;
+          marsTorus.position.x -= uranusPosition;
+          jupiterTorus.position.x -= uranusPosition;
+          saturnTorus.position.x -= uranusPosition;
+          uranusTorus.position.x -= uranusPosition;
+          neptuneTorus.position.x -= uranusPosition;
+        }
+        camera.position.set(0, 30, 50);
+        controls.update();
+    };
+document.getElementById("NeptuneBtn").onclick = function (event) {
+
+        if (closeUpPlanet != 'neptune')
+        {
+          closeUpPlanet = 'neptune';
+          init_position();
+
+          sunMesh.position.x -= neptunePosition;
+          mercuryTorus.position.x -= neptunePosition;
+          venusTorus.position.x -= neptunePosition;
+          earthTorus.position.x -= neptunePosition;
+          marsTorus.position.x -= neptunePosition;
+          jupiterTorus.position.x -= neptunePosition;
+          saturnTorus.position.x -= neptunePosition;
+          uranusTorus.position.x -= neptunePosition;
+          neptuneTorus.position.x -= neptunePosition;
+        }
+        camera.position.set(0, 30, 50);
+        controls.update();
     };
 
-var tmp = 50;
+
+
+// Speed control buttons
+document.getElementById("SpeedResetBtn").onclick = function (event) {
+        earth_rt_speed = 0.0005;
+    };
+document.getElementById("SpeedUpBtn").onclick = function (event) {
+        earth_rt_speed += 0.005;
+    };
+document.getElementById("SpeedDownBtn").onclick = function (event) {
+        earth_rt_speed -= 0.005;
+    };
+document.getElementById("PlanetPositionResetBtn").onclick = function (event) {
+        earth_rt_speed = 0;
+        mercuryTorus.rotation.z = 0;
+        venusTorus.rotation.z = 0;
+        earthTorus.rotation.z = 0;
+        moonTorus.rotation.z = 0;
+        marsTorus.rotation.z = 0;
+        jupiterTorus.rotation.z = 0;
+        saturnTorus.rotation.z = 0;
+        uranusTorus.rotation.z = 0;
+        neptuneTorus.rotation.z = 0;
+        plutoTorus.rotation.z = 0;
+    };
+
 
 const animate = function () {
   requestAnimationFrame( animate );
 
   // Use trackball
-  if(flag == 1)
-    controls.update();
+  controls.update();
 
   // rotation
   sunMesh.rotation.y += earth_rt_speed * 4;
@@ -301,17 +493,6 @@ const animate = function () {
   uranusTorus.rotation.z -= 0.2*earth_rt_speed;
   neptuneTorus.rotation.z -= 0.1*earth_rt_speed;
   plutoTorus.rotation.z -= 0.1*earth_rt_speed;
-
-  // Close up planet
-  if(closeUpPlanet == 'sun')
-  {
-
-  }
-  else if(closeUpPlanet == 'mercury')
-  {
-      camera.position.set(mercuryTorus.position.x, mercuryTorus.position.y, mercuryTorus.position.z);
-
-  }
 
   renderer.render( scene, camera );
 };
@@ -370,5 +551,19 @@ function createStars(radius, segments) {
         side: THREE.BackSide
       })
   );
+}
+
+function init_position(){
+
+        sunMesh.position.x = sunPosition;
+        mercuryTorus.position.x = 0;
+        venusTorus.position.x = 0;
+        earthTorus.position.x = 0;
+        marsTorus.position.x = 0;
+        jupiterTorus.position.x = 0;
+        saturnTorus.position.x = 0;
+        uranusTorus.position.x = 0;
+        neptuneTorus.position.x = 0;
+
 }
 
