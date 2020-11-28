@@ -1,34 +1,49 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Solar System</title>
-		<style>
-			body { margin: 0; }
-			canvas { display: block; }
-		</style>
-	</head>
+<head>
+    <title>Solar System</title>
+    <style>
+        body {
+            margin: 0;
+        }
 
-	<body>
-   <button id="SunBtn">Sun</button>
-   <button id="MercuryBtn">Mercury</button>
-   <button id="VenusBtn">Venus</button>
-   <button id="EarthBtn">Earth</button>
-   <button id="MarsBtn">Mars</button>
-   <button id="JupiterBtn">Jupiter</button>
-   <button id="SaturnBtn">Saturn</button>
-   <button id="UranusBtn">Uranus</button>
-   <button id="NeptuneBtn">Neptune</button>
-   <button id="PlutoBtn">Pluto</button>
+        canvas {
+            display: block;
+        }
 
-   <p> </p>
-   <button id="SpeedResetBtn">Start / Speed Reset</button>
-   <button id="SpeedUpBtn">Speed Up</button>
-   <button id="SpeedDownBtn">Speed Down</button>
-   <button id="PlanetPositionResetBtn">Planet Position Reset</button>
+        .btn {
+            background-color: transparent;
+            border: none;
+        }
 
-   <script src="library/three.js"></script>
-   <script src="library/TrackballControls.js"></script>
-	 <script src="js/planet.js"></script>
-	</body>
+        .btn_img {
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+<button id="SunBtn" class="btn"><img src="images/btn/sun.png" class="btn_img"></button>
+<button id="MercuryBtn" class="btn"><img src="images/btn/Mercury.png" class="btn_img"></button>
+<button id="VenusBtn" class="btn"><img src="images/btn/Venus.png" class="btn_img"></button>
+<button id="EarthBtn" class="btn"><img src="images/btn/Earth.png" class="btn_img"></button>
+<button id="MarsBtn" class="btn"><img src="images/btn/Mars.png" class="btn_img"></button>
+<button id="JupiterBtn" class="btn"><img src="images/btn/Jupiter.png" class="btn_img"></button>
+<button id="SaturnBtn" class="btn"><img src="images/btn/Saturn.png" class="btn_img"></button>
+<button id="UranusBtn" class="btn"><img src="images/btn/Uranus.png" class="btn_img"></button>
+<button id="NeptuneBtn" class="btn"><img src="images/btn/Neptune.png" class="btn_img"></button>
+<button id="PlutoBtn" class="btn"><img src="images/btn/Pluto.png" class="btn_img"></button>
+
+<p></p>
+<button id="SpeedResetBtn" class="btn"><img src="images/btn/start_speedReset.png" class="btn_img"></button>
+<button id="SpeedUpBtn" class="btn"><img src="images/btn/SpeedUp.png" class="btn_img"></button>
+<button id="SpeedDownBtn" class="btn"><img src="images/btn/SpeedDown.png" class="btn_img"></button>
+<button id="PlanetPositionResetBtn" class="btn"><img src="images/btn/PlanetPositionReset.png" class="btn_img"></button>
+
+<script src="library/three.js"></script>
+<script src="library/TrackballControls.js"></script>
+<script src="js/planet.js"></script>
+</body>
+
 
 </html>
